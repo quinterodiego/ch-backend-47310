@@ -12,9 +12,11 @@ class ProductManager {
                 }
                 product.id = this.products.length + 1
                 this.products.push(product)
+                return this.products
             } else {
                 product.id = 1
                 this.products.push(product)
+                return this.products
             }
         } else {
             return 'Debe completar todos los campos'
@@ -22,15 +24,15 @@ class ProductManager {
     }
 
     getProducts() {
-        console.log(this.products)
+        return this.products
     }
 
     getProductById(id) {
         const product = this.products.find(p => p.id === id)
         if(product){
-            console.log(product)
+            return product
         } else {
-            console.log('Not found')
+            return 'Not found'
         }
     }
 }
@@ -66,12 +68,13 @@ const product3 = {
     stock: 50
 }
 
-productManager.addProduct(product1)
-productManager.addProduct(product2)
-productManager.addProduct(product3)
+console.log(productManager.addProduct(product1))
+console.log(productManager.addProduct(product2))
+console.log(productManager.addProduct(product3))
 
 console.log('|************************Listado de productos************************|')
-productManager.getProducts()
+const products = productManager.getProducts()
+console.log('Products: ', products)
 
 
 const product4 = {
@@ -83,7 +86,7 @@ const product4 = {
     stock: 50
 }
 
-productManager.addProduct(product4)
+console.log(productManager.addProduct(product4))
 
 console.log('|***********************Buscar producto*************************|')
-productManager.getProductById(3)
+console.log(productManager.getProductById(3))
