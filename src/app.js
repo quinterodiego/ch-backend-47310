@@ -1,36 +1,16 @@
-const ProductManager = require('./ProductManager.js')
-const express = require('express')
+import express from 'express'
+import __dirname from './utils.js'
+import productsRouter from './routers/products.js'
+import cartsRouter from './routers/carts.js'
 
 const app = express()
-
-app.use(express.urlencoded({ extended: true }))
-
 const PORT = 8080
 
-const productManager = new ProductManager('src/products.json')
-
-app.get('/products', async (req, res) => {
-    const products = await productManager.getProducts()
-    const { limit } = req.query
-    if ( limit ) {
-        const productsLimit = products.splice(0, parseInt(limit))
-        res.send({ productsLimit })
-    } else {
-        res.send( products )
-    }
-
-})
-
-app.get('/products/:pid', async (req, res) => {
-    const id = parseInt(req.params.pid)
-    const product = await productManager.getProductById(id)
-    if(product) {
-        res.send(product)
-    } else {
-        res.send({ error: 'Producto no encontrado'})
-    }
-})
-
+// MIDDLEWARES
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use('/api/products', productsRouter)
+app.use('/api/carts', cartsRouter)
 
 app.listen(PORT, () => {
     console.log(`Servidor escuchando en el puerto ${PORT}`)
