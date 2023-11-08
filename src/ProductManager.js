@@ -15,29 +15,25 @@ class ProductsManager {
 
     async addProduct(product) {
         try {
-            if(product.title && product.description && product.price && product.thumbnail && product.code && product.stock && product.category) {
-                const data = await fs.promises.readFile(this.path, 'utf-8')
-                const products = await JSON.parse(data);
-    
-                if(products.length > 0){
-                    const code = products.find(p => p.code === product.code)
-                    if(code) {
-                        return 'Ya existe el codigo de producto'
-                    }
-    
-                    product.id = await this.nextID()
-                    product.status = true
-                    products.push(product)
-                    await fs.promises.writeFile(this.path, JSON.stringify(products))
-                } else {
-                    product.id = 1
-                    product.status = true
-                    products.push(product)
-                    await fs.promises.writeFile(this.path, JSON.stringify(products))
-                }
-            } else {
-                return 'Debe completar todos los campos'
-            }
+          const data = await fs.promises.readFile(this.path, 'utf-8')
+          const products = await JSON.parse(data);
+
+          if(products.length > 0){
+              const code = products.find(p => p.code === product.code)
+              if(code) {
+                  return 'Ya existe el codigo de producto'
+              }
+
+              product.id = await this.nextID()
+              product.status = true
+              products.push(product)
+              await fs.promises.writeFile(this.path, JSON.stringify(products))
+          } else {
+              product.id = 1
+              product.status = true
+              products.push(product)
+              await fs.promises.writeFile(this.path, JSON.stringify(products))
+          }
         } catch (error) {
             console.log(error)
         }
