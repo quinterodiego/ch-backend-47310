@@ -1,49 +1,51 @@
 const socket = io()
 
-const renderProducts = (data) => {
-    const html = data.map((product) => {
+let email = ''
+
+window.addEventListener('load', () => {
+    formMessage.style.display = 'none'
+    chat.style.display = 'none'
+})
+
+const renderMessages = (data) => {
+    const html = data.map((message) => {
         return (`
-        <tr>
-            <td>${product.title}</td>
-            <td>${product.description}</td>
-            <td>${product.category}</td>
-            <td><img src="${product.thumbnail}" width="75"/></td>
-            <td>$${product.price}</td>
-            <td>${product.code}</td>
-            <td>${product.stock}</td>
-            <td align="center">
-                <a href="#" class="text-white">
-                    <i class="fa-solid fa-trash-can" onclick="deleteProduct(${product.id})"></i>
-                </a>
-            </td>
-        </tr>
+        <figure>
+            <blockquote class="blockquote">
+                <p><strong>${message.user}</strong></p>
+            </blockquote>
+            <figcaption class="blockquote-footer">
+                ${message.message}
+            </figcaption>
+        </figure>
         `)
     }).join('');
-    document.getElementById('products').innerHTML = html;
+    document.getElementById('chat').innerHTML = html;
 }
 
-const deleteProduct = (id) => {
-    socket.emit('delete', id)
-}
-
-const formProducts = document.getElementById('form-products');
-formProducts.onsubmit = e => {
-    e.preventDefault();
-    const product = {
-        title: document.getElementById('title').value,
-        description: document.getElementById('description').value,
-        thumbnail: document.getElementById('thumbnail').value,
-        price: parseInt(document.getElementById('price').value),
-        code: document.getElementById('code').value,
-        stock: parseInt(document.getElementById('stock').value),
-        category: document.getElementById('category').value
+const formMessage = document.getElementById('formMessage')
+formMessage.onsubmit = e => {
+    e.preventDefault()
+    const message = {
+        user: email,
+        message: document.getElementById('message').value
     }
 
-    socket.emit('newProduct', product);
-    formProducts.reset();
+    socket.emit('newMessage', message)
+    formMessage.reset()
 }
 
-socket.on('products', (data) => {
-  console.log('Recibo productos', data.lenght)
-    renderProducts(data);
+socket.on('messages', (data) => {
+    renderMessages(data)
 })
+
+const chat = document.getElementById('chat')
+
+const formEmail = document.getElementById('email')
+formEmail.onsubmit = e => {
+    e.preventDefault()
+    email = document.getElementById('user').value
+    formMessage.style.display = 'block'
+    chat.style.display = 'block'
+    formEmail.style.display = 'none'
+}
