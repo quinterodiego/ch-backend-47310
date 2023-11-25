@@ -25,9 +25,9 @@ export default class CartDaoMongoDB {
     try {
       const cart = await CartModel.findOne({_id: id})
       const oldProducts = cart.products
-      const productExists = oldProducts.find(product => product.idProduct === idProduct)
+      const productExists = oldProducts.find(product => product.id.toString() === idProduct)
       if(productExists) {
-        const index = oldProducts.findIndex(product => product.idProduct === idProduct)
+        const index = oldProducts.findIndex(product => product.id.toString() === idProduct)
         oldProducts[index].quantity += quantity
       } else {
         oldProducts.push({ id: idProduct, quantity })
