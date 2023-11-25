@@ -1,5 +1,8 @@
-import { ProductDaoMongoDB } from './../dao/mongoDB/product.dao'
+import ProductDaoMongoDB from './../dao/mongoDB/product.dao.js'
 const productDao = new ProductDaoMongoDB()
+
+// import { ProductDaoFilesystem } from './../dao/fileSystem/product.dao.js'
+// const productFileSystem = new ProductDaoFilesystem('../dao/fileSystem/data/products.json')
 
 export const getAll = async () => {
   try {
