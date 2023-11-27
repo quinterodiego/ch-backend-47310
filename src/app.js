@@ -2,7 +2,7 @@ import express from 'express'
 import handlebars from 'express-handlebars'
 import { Server } from "socket.io"
 
-import __dirname from './utils/utils.js'
+import __dirname from './utils.js'
 import productsRouter from './routers/products.router.js'
 import cartsRouter from './routers/carts.router.js'
 import messagesRouter from './routers/messages.router.js'
@@ -50,8 +50,8 @@ io.on('connection', async (socket) => {
   socket.emit('messages', messages)
 
   socket.on('newMessage', async data => {
-      await MessageModel.create(data)
-      const messages = await MessageModel.find()
+      await MessagesModel.create(data)
+      const messages = await MessagesModel.find()
       io.sockets.emit('messages', messages)
   })
 })
