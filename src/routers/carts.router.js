@@ -8,7 +8,7 @@ cartsRouter.post('/', controller.create)
 cartsRouter.get('/:cid', controller.getById)
 
 cartsRouter.put('/:cid/product/:pid', controller.addProductByIdInCart)
-cartsRouter.put('/:cid/products/:pid', controller.updateProductsArray)
+cartsRouter.put('/:cid/products', controller.updateProductsArray)
 
 cartsRouter.delete('/:cid/products/:pid', controller.deleteProduct)
 cartsRouter.delete('/:cid', controller.deleteAllProducts)

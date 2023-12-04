@@ -1,6 +1,6 @@
 import * as service from '../services/cart.services.js'
 
-export const create = async (req, res) => {
+export const create = async (_, res) => {
   const newCart = await service.create()
   if(newCart) {
     res.status(200).send({

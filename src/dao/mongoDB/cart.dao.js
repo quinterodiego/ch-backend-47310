@@ -29,18 +29,25 @@ export default class CartDaoMongoDB {
         return products
     }
 
-    addProduct = async (idCart, idProduct) => {
-        const cart = await CartModel.findById(idCart)
-        const exist = cart.products.find(prod => prod.product.toString() === idProduct)
-        let resp = ''
-        if(!exist) {
-            cart.products.push({ product: idProduct, quantity: 1 })
-            resp = await cart.save()
-            return resp
-        } else {
-            resp = 'El producto ya existe en el carrito'
-            return resp
-        }
+    addProductByIdInCart = async (idCart, idProduct, quantity) => {
+      const cart = await CartModel.findOne({_id: idCart})
+      const exist = cart.products.find(prod => prod.product.toString() === idProduct)
+      let resp = ''
+      if(!exist) {
+          resp = 'El producto que intenta actualizar no existe en el carrito'
+          return resp
+      } else {
+          const oldProducts = cart.products
+          const index = oldProducts.findIndex(product => product.product.toString() === idProduct)
+          oldProducts[index].quantity += quantity
+          resp = await CartModel.findByIdAndUpdate(idCart, { products: oldProducts}, { new: true })
+          return resp
+      }
+    }
+
+    updateProductsArray = async (idCart, products) => {
+      const resp = await CartModel.findByIdAndUpdate(idCart, { products: products}, { new: true })
+        return resp
     }
 
     deleteProduct = async (idCart, idProduct) => {
@@ -58,29 +65,8 @@ export default class CartDaoMongoDB {
         }
     }
 
-    deleteProducts = async (idCart) => {
+    deleteAllProducts = async (idCart) => {
         const resp = await CartModel.findByIdAndUpdate(idCart, { products: []}, { new: true })
         return resp
-    }
-
-    updateProducts = async (idCart, products) => {
-        const resp = await CartModel.findByIdAndUpdate(idCart, { products: products}, { new: true })
-        return resp
-    }
-    
-    updateQuantity = async (idCart, idProduct, quantity) => {
-        const cart = await CartModel.findOne({_id: idCart})
-        const exist = cart.products.find(prod => prod.product.toString() === idProduct)
-        let resp = ''
-        if(!exist) {
-            resp = 'El producto que intenta actualizar no existe en el carrito'
-            return resp
-        } else {
-            const oldProducts = cart.products
-            const index = oldProducts.findIndex(product => product.product.toString() === idProduct)
-            oldProducts[index].quantity += quantity
-            resp = await CartModel.findByIdAndUpdate(idCart, { products: oldProducts}, { new: true })
-            return resp
-        }
     }
 }
