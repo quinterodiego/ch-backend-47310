@@ -2,7 +2,7 @@ import * as service from './../services/product.services.js'
 
 export const getAll =  async (req, res) => {
   const products = await service.getAll()
-  const { limit } = req.query
+  const { limit = 0 } = req.query
   if(limit) {
     const productsLimit = products.splice(0, parseInt(limit))
     res.status(200).send({ 
@@ -10,10 +10,7 @@ export const getAll =  async (req, res) => {
       "payload": productsLimit 
     })
   } else {
-    res.status(200).send({ 
-      "status": "success",
-      "payload": products 
-    })
+    res.status(200).send(products)
   }
 }
 
