@@ -40,6 +40,17 @@ export const addProductByIdInCart = async (req, res) => {
   }
 }
 
+export const updateProductsArray = async (req, res) => {
+  const idCart = req.params.cid
+  const products = req.body.products
+  const resp = await cartService.updateProductsArray(idCart, products)
+  
+  res.status(201).send({
+      "status": "success",
+      "message": resp
+  })
+}
+
 export const deleteProduct = async (req, res) => {
   const idCart = req.params.cid
   const idProduct = req.params.pid
@@ -51,32 +62,9 @@ export const deleteProduct = async (req, res) => {
   })
 }
 
-export const deleteProducts = async (req, res) => {
+export const deleteAllProducts = async (req, res) => {
   const idCart = req.params.cid
-  const products = req.body.products
-  const resp = await cartService.deleteProducts(idCart, products)
-  
-  res.status(201).send({
-      "status": "success",
-      "message": resp
-  })
-}
-
-export const updateProducts = async (req, res) => {
-  const idCart = req.params.cid
-  const idProduct = req.params.pid
-  const quantity = req.body.quantity
-  const resp = await cartService.updateProducts(idCart, idProduct, quantity)
-  
-  res.status(201).send({
-      "status": "success",
-      "message": resp
-  })
-}
-
-export const updateQuantity = async (req, res) => {
-  const idCart = req.params.cid
-  const resp = await cartService.updateQuantity(idCart)
+  const resp = await cartService.deleteAllProducts(idCart)
   
   res.status(201).send({
       "status": "success",
