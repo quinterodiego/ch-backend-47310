@@ -13,6 +13,7 @@ export const create = async () => {
 
 export const getById = async (id) => {
   try {
+    console.log(id)
     const cart = await cartDao.getById(id)
     if(!cart) return false
     else return cart
@@ -21,9 +22,9 @@ export const getById = async (id) => {
   }
 }
 
-export const addProductByIdInCart = async (id, product, quantity) => {
+export const addProductById = async (id, product, quantity) => {
   try {
-    const cartUpdated = await cartDao.addProductByIdInCart(id, product, quantity)
+    const cartUpdated = await cartDao.addProductByIdInCart(id, product)
     if(!cartUpdated) return false
     else return cartUpdated
   } catch (error) {
@@ -31,9 +32,9 @@ export const addProductByIdInCart = async (id, product, quantity) => {
   }
 }
 
-export const updateProductsArray = async (idCart, products) => {
+export const updateProductQuantity = async (idCart, idProduct, quantity) => {
   try {
-    const cartUpdated = await cartDao.updateProductsArray(idCart, products)
+    const cartUpdated = await cartDao.updateProductsArray(idCart, idProduct, quantity)
     if(!cartUpdated) return false
     else return cartUpdated
   } catch (error) {

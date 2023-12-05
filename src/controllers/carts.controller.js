@@ -13,7 +13,7 @@ export const create = async (_, res) => {
 }
 
 export const getById = async (req, res) => {
-  const id = req.params.pid
+  const id = req.params.cid
   const cart = await service.getById(id)
   if(cart) {
     res.status(200).send({ 
@@ -25,19 +25,26 @@ export const getById = async (req, res) => {
   }
 }
 
-export const addProductByIdInCart = async (req, res) => {
+export const addProductById = async (req, res) => {
+  const idCart = req.params.cid
+  const idProduct = req.params.pid
+  const resp = await cartService.addProduct(idCart, idProduct)
+  res.status(201).send({
+      "status": "success",
+      "message": resp
+  })
+}
+
+export const updateProductQuantity = async (req, res) => {
   const idCart = req.params.cid
   const idProduct = req.params.pid
   const quantity = req.body.quantity
-  const cartUpdated = await service.addProductByIdInCart(idCart, idProduct, quantity);
-  if(cartUpdated){
-    res.status(201).send({
-        "status": "success",
-        "message": cartUpdated
-    })
-  } else {
-    res.status(404).send({ error: 'Error al actualizar el carrito'})
-  }
+  const resp = await cartService.updateProductQuantity(idCart, idProduct, quantity)
+  
+  res.status(201).send({
+      "status": "success",
+      "message": resp
+  })
 }
 
 export const updateProductsArray = async (req, res) => {
