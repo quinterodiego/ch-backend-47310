@@ -35,7 +35,7 @@ export default class CartDaoMongoDB {
     }
 
     addProductById = async (idCart, idProduct) => {
-      const cart = await CartMongoDBModel.findById(idCart)
+      const cart = await CartModel.findById(idCart)
       const exist = cart.products.find(prod => prod.product.toString() === idProduct)
       let resp = ''
       if(!exist) {
@@ -49,13 +49,19 @@ export default class CartDaoMongoDB {
     }
 
     updateProductQuantity = async (idCart, idProduct, quantity) => {
-      try {
-        const cartUpdated = await cartDao.updateProductsArray(idCart, idProduct, quantity)
-        if(!cartUpdated) return false
-        else return cartUpdated
-      } catch (error) {
-        console.log(error)
-      }
+      const cart = await CartModel.findOne({_id: idCart})
+        const exist = cart.products.find(prod => prod.product.toString() === idProduct)
+        let resp = ''
+        if(!exist) {
+            resp = 'El producto que intenta actualizar no existe en el carrito'
+            return resp
+        } else {
+            const oldProducts = cart.products
+            const index = oldProducts.findIndex(product => product.product.toString() === idProduct)
+            oldProducts[index].quantity += quantity
+            resp = await CartModel.findByIdAndUpdate(idCart, { products: oldProducts}, { new: true })
+            return resp
+        }
     }
 
     deleteProduct = async (idCart, idProduct) => {

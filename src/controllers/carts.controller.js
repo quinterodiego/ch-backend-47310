@@ -28,7 +28,7 @@ export const getById = async (req, res) => {
 export const addProductById = async (req, res) => {
   const idCart = req.params.cid
   const idProduct = req.params.pid
-  const resp = await cartService.addProduct(idCart, idProduct)
+  const resp = await service.addProductById(idCart, idProduct)
   res.status(201).send({
       "status": "success",
       "message": resp
@@ -39,7 +39,7 @@ export const updateProductQuantity = async (req, res) => {
   const idCart = req.params.cid
   const idProduct = req.params.pid
   const quantity = req.body.quantity
-  const resp = await cartService.updateProductQuantity(idCart, idProduct, quantity)
+  const resp = await service.updateProductQuantity(idCart, idProduct, quantity)
   
   res.status(201).send({
       "status": "success",
@@ -50,7 +50,7 @@ export const updateProductQuantity = async (req, res) => {
 export const updateProductsArray = async (req, res) => {
   const idCart = req.params.cid
   const products = req.body.products
-  const resp = await cartService.updateProductsArray(idCart, products)
+  const resp = await service.updateProductsArray(idCart, products)
   
   res.status(201).send({
       "status": "success",
@@ -61,7 +61,7 @@ export const updateProductsArray = async (req, res) => {
 export const deleteProduct = async (req, res) => {
   const idCart = req.params.cid
   const idProduct = req.params.pid
-  const resp = await cartService.deleteProduct(idCart, idProduct)
+  const resp = await service.deleteProduct(idCart, idProduct)
   
   res.status(201).send({
       "status": "success",
@@ -71,7 +71,7 @@ export const deleteProduct = async (req, res) => {
 
 export const deleteAllProducts = async (req, res) => {
   const idCart = req.params.cid
-  const resp = await cartService.deleteAllProducts(idCart)
+  const resp = await service.deleteAllProducts(idCart)
   
   res.status(201).send({
       "status": "success",

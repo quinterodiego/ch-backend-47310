@@ -22,9 +22,9 @@ export const getById = async (id) => {
   }
 }
 
-export const addProductById = async (id, product, quantity) => {
+export const addProductById = async (id, product) => {
   try {
-    const cartUpdated = await cartDao.addProductByIdInCart(id, product)
+    const cartUpdated = await cartDao.addProductById(id, product)
     if(!cartUpdated) return false
     else return cartUpdated
   } catch (error) {
@@ -34,7 +34,7 @@ export const addProductById = async (id, product, quantity) => {
 
 export const updateProductQuantity = async (idCart, idProduct, quantity) => {
   try {
-    const cartUpdated = await cartDao.updateProductsArray(idCart, idProduct, quantity)
+    const cartUpdated = await cartDao.updateProductQuantity(idCart, idProduct, quantity)
     if(!cartUpdated) return false
     else return cartUpdated
   } catch (error) {
