@@ -42,6 +42,16 @@ export const updateProductQuantity = async (idCart, idProduct, quantity) => {
   }
 }
 
+export const updateProductsArray = async (idCart, products) => {
+  try {
+    const cartUpdated = await cartDao.updateProductsArray(idCart, products)
+    if(!cartUpdated) return false
+    else return cartUpdated
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const deleteProduct = async (idCart, idProduct) => {
   try {
     const cartUpdated = await cartDao.deleteProduct(idCart, idProduct)
