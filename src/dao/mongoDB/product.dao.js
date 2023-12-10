@@ -2,15 +2,10 @@ import { ProductModel } from './models/products.model.js'
 
 export default class ProductDaoMongoDB {
 
-  async getAll(limit){
+  async getAll(query, filters){
     try {
-      const products = await ProductModel.find()
-      if(limit) {
-        const productsLimit = products.splice(0, parseInt(limit))
-        return productsLimit
-      } else {
-        return products
-      }
+      const products = await ProductModel.paginate(query, filters)
+      return products
     } catch (error) {
       console.log(error)
     }
