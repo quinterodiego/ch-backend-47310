@@ -1,4 +1,4 @@
-import { UserModel } from "../dao/mongoDB/models/users.model"
+import { UserModel } from "../dao/mongoDB/models/users.model.js"
 
 export default class UserService {
 

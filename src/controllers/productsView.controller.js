@@ -5,8 +5,9 @@ export const getAllProducts =  async (req, res) => {
   const resp = await getAll(limit, page, sort, category, stock)
   const userData = {
     firstname: req.session.firstname,
-    lastname: req.session.lastname ,
-    email: req.session.email
+    lastname: req.session.lastname,
+    email: req.session.email,
+    role: req.session.role
   }
   resp.userData = userData
   res.status(200).render('products', resp)
