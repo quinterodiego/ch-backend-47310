@@ -1,5 +1,4 @@
 import ProductDaoMongoDB from './../dao/mongoDB/product.dao.js'
-import { ProductModel } from "../dao/mongoDB/models/products.model.js";
 const productDao = new ProductDaoMongoDB()
 
 // import { ProductDaoFilesystem } from './../dao/fileSystem/product.dao.js'
