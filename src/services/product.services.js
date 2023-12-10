@@ -1,5 +1,4 @@
 import ProductDaoMongoDB from './../dao/mongoDB/product.dao.js'
-import { ProductModel } from "../dao/mongoDB/models/products.model.js";
 const productDao = new ProductDaoMongoDB()
 
 // import { ProductDaoFilesystem } from './../dao/fileSystem/product.dao.js'
@@ -16,7 +15,7 @@ export const getAll = async (limit, page, sort, category, stock) => {
   let query = {}
   category ? query.category = category : null
   stock ? query.stock = { $gt: stock} : null
-  const resp = await ProductModel.paginate( query, filters)
+  const resp = await productDao.getAll(query, filters)
   const paramLimit = limit ? `&limit=${limit}` : ''
   const paramSort = sort ? `&sort=${sort}` : ''
   const paramCategory = category ? `&category=${category}` : ''
