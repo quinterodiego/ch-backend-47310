@@ -41,7 +41,6 @@ export const getAll = async (limit, page, sort, category, stock) => {
     };
   });
   const { docs, ...rest } = resp;
-  console.log('REST => ', rest)
 
   return { 
       status: 'success', 

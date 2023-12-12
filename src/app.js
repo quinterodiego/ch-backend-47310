@@ -2,9 +2,10 @@ import express from 'express'
 import handlebars from 'express-handlebars'
 import { Server } from "socket.io"
 import session from 'express-session'
-import MongoStore from 'connect-mongo'
+import passport from 'passport'
 
-import __dirname from './utils.js'
+import __dirname, { mongoStoreOptions } from './utils.js'
+import './passport/strategies.passport.js'
 
 import productsRouter from './routers/products.router.js'
 import cartsRouter from './routers/carts.router.js'
@@ -30,12 +31,11 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static(__dirname + '/public'))
 
 // CONNECT TO MONGODB
-app.use(session({
-  store: MongoStore.create({ mongoUrl: 'mongodb+srv://d86webs:Diego859@cluster0.htbts60.mongodb.net/ecommerce', ttl: 3600 }),
-  secret: 'secretCode',
-  resave: true,
-  saveUninitialized: true
-}))
+app.use(session(mongoStoreOptions))
+
+// PASSPORT
+app.use(passport.initialize())
+app.use(passport.session())
 
 // ROUTES APIS
 app.use('/api/products', productsRouter)

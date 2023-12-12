@@ -6,6 +6,15 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 
 export default __dirname
 
+/* MONGO STORE OPTIONS */
+import MongoStore from 'connect-mongo'
+export const mongoStoreOptions = {
+  store: MongoStore.create({ mongoUrl: 'mongodb+srv://d86webs:Diego859@cluster0.htbts60.mongodb.net/ecommerce', ttl: 3600 }),
+  secret: 'secretCode',
+  resave: true,
+  saveUninitialized: true
+}
+
 
 /* BCRYPT HASHEO */
 import bcrypt, { hashSync, genSaltSync, compareSync } from 'bcrypt'
@@ -16,6 +25,6 @@ export const createHash = (password) => {
 }
 
 /* Login */
-// export const isValidPassword = (user, password) = {
-//   compareSync(password, user.password)
-// }
+export const isValidPassword = (password, user) => {
+  return compareSync(password, user.password)
+}

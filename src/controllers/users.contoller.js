@@ -4,17 +4,11 @@ const userService = new UserService()
 export default class UserController {
 
   async register(req, res) {
-    const { firstname, lastname, email, password } = req.body
-    if(!email || !password || !firstname || !lastname) {
-      return res.status(400).render('error', { error: 'Debe completar todos los campos' })
-    }
-  
     try {
-      const user = { firstname, lastname, email, password }
-      await userService.registerUser(user)
-      // req.session.firstname = firstname
-      // req.session.lastname = lastname
-      // req.session.email = email
+      const user = req.body
+      if(!user.email || !user.password || !user.firstname || !user.lastname) {
+        return res.status(400).render('error', { error: 'Debe completar todos los campos' })
+      }
       return res.redirect('/')
     } catch (error) {
       console.log(error)
@@ -27,18 +21,10 @@ export default class UserController {
   }
 
   async login(req, res) {
-    const { email, password } = req.body
-    if(!email || !password) {
-      return res.status(400).render('error', { error: 'Debe completar todos los campos' })
-    }
-  
-    const user = {
-      email, password
-    }
-    const findUser = await userService.loginUser( user )
-    console.log('LLEGO')
+    const id = req.session.passport.user;    
+    const findUser = await userService.getById( id )
     
-    if(findUser && findUser.password == password) {
+    if(findUser) {
       req.session.firstname = findUser.firstname
       req.session.lastname = findUser.lastname
       req.session.email = findUser.email

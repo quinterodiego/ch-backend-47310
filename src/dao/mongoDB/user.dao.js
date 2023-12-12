@@ -1,9 +1,28 @@
+import { createHash, isValidPassword } from '../../utils.js'
 import { UserModel } from './models/users.model.js'
 
 export default class UserDaoMongoDB {
 
   async findByEmail(email) {
-    return await UserModel.findOne({ email })
+    try {
+      const userExist = await UserModel.findOne({ email })
+      if(userExist) return userExist
+      else return false 
+    } catch (error) {
+      console.log(error)
+      throw new Error(error)
+    }
+  }
+
+  async getById(id) {
+    try {
+      const userExist = await UserModel.findOne({ _id: id })
+      if(userExist) return userExist
+      else return false 
+    } catch (error) {
+      console.log(error)
+      throw new Error(error)
+    }
   }
 
   async registerUser(user) {
@@ -12,9 +31,20 @@ export default class UserDaoMongoDB {
       const existUser = await this.findByEmail(email)
       if(!existUser) {
         if(email === 'adminCoder@coder.com' && password === 'adminCod3r123') {
-          return await UserModel.create({ ...user, role: 'admin' })
+          return await UserModel.create(
+            { 
+              ...user, 
+              password: createHash(password), 
+              role: 'admin' 
+            }
+          )
         }
-        return await UserModel.create(user)
+        return await UserModel.create(
+          {
+            ...user, 
+            password: createHash(password)
+          }
+        )
       } else return false
     } catch (error) {
       console.log(error)
@@ -22,11 +52,14 @@ export default class UserDaoMongoDB {
   }
 
   async loginUser(user) {
-    const { email, password } = user
     try {
-      const userExists = await UserModel.findOne({ email, password })
-      if (!userExists) return false
-      else return userExists
+      const { email, password } = user
+      const userExist = await UserModel.findOne({ email })
+      if(userExist) {
+        const isValidPass = isValidPassword(password, userExist)
+        if(!isValidPass) return false
+        else return userExist
+      } else return false
     } catch (error) {
       console.log(error)
     }
