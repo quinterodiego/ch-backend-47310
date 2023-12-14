@@ -36,8 +36,7 @@ export default class UserController {
       email, password
     }
     const findUser = await userService.loginUser( user )
-    console.log('LLEGO')
-    
+     console.log(user, findUser)   
     if(findUser && findUser.password == password) {
       req.session.firstname = findUser.firstname
       req.session.lastname = findUser.lastname
