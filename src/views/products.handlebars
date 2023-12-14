@@ -1,15 +1,16 @@
-<div class="d-flex justify-content-around pt-2">
+<div class="d-flex justify-content-around pt-3">
   <div class="alert alert-success w-25 d-flex flex-column" role="alert">
-    <p class="h4">Bienvenido</p>
-    {{userData.firstname}}
-    <br>
-    Email: {{userData.email}}
-    <br>
-    Rol: {{userData.role}}
+    <p class="p-0 m-0">
+      <b>Bienvenido</b> {{userData.firstname}} {{userData.lastname}}
+    </p>
+    <p class="p-0 m-0"><b>Email:</b> {{userData.email}}</p>
+    <p class="p-0 m-0"><b>Rol:</b> {{userData.role}}</p>
   </div>
-  <h1 class="text-white text-center p-5">PRODUCTOS</h1>
-  <div class="w-25 d-flex" role="alert">
-    <a href="/logout" class="btn btn-danger m-auto">Logout</a>
+  <h1 class="text-white text-center p-3">PRODUCTOS</h1>
+  <div class="w-25 d-flex justify-content-end align-items-center" role="alert">
+    <a href="/logout">
+      <button class="btn btn-danger">Logout</button>
+    </a>
   </div>
 </div>
 
