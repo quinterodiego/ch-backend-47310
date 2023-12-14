@@ -15,3 +15,15 @@ authRouter.get('/register', userController.registerView)
 authRouter.post('/register', passport.authenticate('register'), userController.register)
 
 authRouter.get('/logout', userController.logout)
+
+authRouter.get('/github', passport.authenticate('github', { scope: ['user:email'] }));
+
+authRouter.get('/githubcallback', passport.authenticate('github', { failureRedirect: '/faillogin' }), (req, res) => {
+  console.log('req.user => ', req.user)
+  req.session.user = req.user
+  return res.redirect('/products')
+})
+
+authRouter.get('/faillogin', async (req, res) => {
+  return res.json({ error: 'fail to login' })
+})

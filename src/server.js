@@ -5,7 +5,8 @@ import session from 'express-session'
 import passport from 'passport'
 
 import __dirname, { mongoStoreOptions } from './utils.js'
-import './passport/strategies.passport.js'
+import './config/passport/strategies.passport.js'
+import { iniPassport } from './config/passport/strategies.github.js'
 
 import productsRouter from './routers/products.router.js'
 import cartsRouter from './routers/carts.router.js'
@@ -34,6 +35,7 @@ app.use(express.static(__dirname + '/public'))
 app.use(session(mongoStoreOptions))
 
 // PASSPORT
+iniPassport()
 app.use(passport.initialize())
 app.use(passport.session())
 
