@@ -60,5 +60,19 @@ export default class UserController {
     } else {
       return res.status(401).render('error', { error: 'Email o password incorrectos' })
     }
+  
+  }
+  async loginGoogle(req, res) {
+    const user = req.user
+    
+    if(user) {
+      req.session.firstname = user.firstname
+      req.session.lastname = user.lastname
+      req.session.email = user.email
+      req.session.role = user.role
+      return res.redirect('/products')
+    } else {
+      return res.status(401).render('error', { error: 'Email o password incorrectos' })
+    }
   }
 }

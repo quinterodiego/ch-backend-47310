@@ -39,12 +39,7 @@ export default class UserDaoMongoDB {
             }
           )
         }
-        return await UserModel.create(
-          {
-            ...user, 
-            password: createHash(password)
-          }
-        )
+        return await UserModel.create({ ...user, password: createHash(password) })
       } else return false
     } catch (error) {
       console.log(error)

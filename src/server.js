@@ -6,6 +6,7 @@ import passport from 'passport'
 
 import __dirname, { mongoStoreOptions } from './utils.js'
 import './config/passport/strategies.passport.js'
+import './config/passport/strategies.google.js'
 import { iniPassport } from './config/passport/strategies.github.js'
 
 import productsRouter from './routers/products.router.js'

@@ -19,7 +19,6 @@ authRouter.get('/logout', userController.logout)
 authRouter.get('/github', passport.authenticate('github', { scope: ['user:email'] }));
 
 authRouter.get('/githubcallback', passport.authenticate('github', { failureRedirect: '/faillogin' }), (req, res) => {
-  console.log('req.user => ', req.user)
   req.session.user = req.user
   req.session.firstname = req.user.firstname
   req.session.lastname = req.user.lastname
@@ -28,6 +27,8 @@ authRouter.get('/githubcallback', passport.authenticate('github', { failureRedir
   return res.redirect('/products')
 })
 
-authRouter.get('/faillogin', async (req, res) => {
+authRouter.get('/faillogin', async (_, res) => {
   return res.json({ error: 'fail to login' })
 })
+
+authRouter.get('/auth/oauth2/redirect/accounts.google.com', passport.authenticate('google', { assignProperty: 'user' }), userController.loginGoogle)
