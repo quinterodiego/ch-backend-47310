@@ -1,3 +1,4 @@
+import { generateToken } from '../jwt/auth.js'
 import UserService from '../services/user.services.js'
 const userService = new UserService()
 
@@ -29,6 +30,9 @@ export default class UserController {
       req.session.lastname = findUser.lastname
       req.session.email = findUser.email
       req.session.role = findUser.role
+      const access_token = generateToken(findUser)
+      res.header('Authorization', access_token)
+      console.log(access_token)
       return res.redirect('/products')
     } else {
       return res.status(401).render('error', { error: 'Email o password incorrectos' })

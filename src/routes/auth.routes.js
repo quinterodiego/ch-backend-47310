@@ -2,6 +2,7 @@ import express from 'express'
 import passport from 'passport'
 
 import UserController from '../controllers/users.contoller.js'
+import { checkToken } from '../middlewares/checkToken.js'
 
 const userController = new UserController()
 export const authRouter = express.Router()
@@ -32,3 +33,8 @@ authRouter.get('/faillogin', async (_, res) => {
 })
 
 authRouter.get('/auth/oauth2/redirect/accounts.google.com', passport.authenticate('google', { assignProperty: 'user' }), userController.loginGoogle)
+
+authRouter.get('/private', checkToken, (req, res) => {
+  const user = req.user
+  res.json(user)
+})

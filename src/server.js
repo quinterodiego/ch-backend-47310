@@ -9,12 +9,7 @@ import './config/passport/strategies.passport.js'
 import './config/passport/strategies.google.js'
 import { iniPassport } from './config/passport/strategies.github.js'
 
-import productsRouter from './routers/products.router.js'
-import cartsRouter from './routers/carts.router.js'
-import { productRouterView } from './routers/productsView.router.js'
-import { cartRouterView } from './routers/cartView.router.js'
-import messagesRouter from './routers/messages.router.js'
-import { authRouter } from './routers/auth.router.js'
+import router from './routes/index.routes.js'
 
 import connectMongoDB from './dao/mongoDB/connection.js'
 import { MessagesModel } from './dao/mongoDB/models/messages.model.js'
@@ -41,19 +36,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 // ROUTES APIS
-app.use('/api/products', productsRouter)
-app.use('/api/carts', cartsRouter)
-app.use('/api/chat', messagesRouter)
-
-// ROUTES VIEWS
-
-app.use("/products", productRouterView);
-app.use("/carts", cartRouterView);
-app.get('/chat', async (req, res) => {
-    res.render('chat', {})
-})
-
-app.use('/', authRouter)
+app.use('/', router)
 
 app.get("*", (req, res) => {
   return res.status(404).json({
