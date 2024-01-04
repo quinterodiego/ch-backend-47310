@@ -1,8 +1,10 @@
 import mongoose from 'mongoose'
 
+const connectionString = process.env.MONGODB_URL
+
 const connectMongoDB = async () => {
     try {
-        await mongoose.connect('mongodb+srv://d86webs:Diego859@cluster0.htbts60.mongodb.net/ecommerce', {
+        await mongoose.connect(connectionString, {
             useNewUrlParser: true,
             useUnifiedTopology: true
         })

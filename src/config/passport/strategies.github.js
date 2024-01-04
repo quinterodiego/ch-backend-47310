@@ -25,7 +25,6 @@
         lastname: 'nolast',
         password: 'nopass',
       };
-      console.log('PROFILE => ', profile)
       const userCreated = await userDaoMongoDB.registerUser(newUser)
       console.log('User Registration succesful')
       return done(null, userCreated)

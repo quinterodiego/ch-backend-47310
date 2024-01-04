@@ -1,4 +1,4 @@
-import { generateToken } from '../jwt/auth.js'
+import { generateToken } from '../middlewares/generateToken.js'
 import UserService from '../services/user.services.js'
 const userService = new UserService()
 
@@ -22,18 +22,15 @@ export default class UserController {
   }
 
   async login(req, res) {
-    const id = req.session.passport.user;    
-    const findUser = await userService.getById( id )
+    const { email, password } = req.body    
+    const findUser = await userService.loginUser({ email, password })
     
     if(findUser) {
-      req.session.firstname = findUser.firstname
-      req.session.lastname = findUser.lastname
-      req.session.email = findUser.email
-      req.session.role = findUser.role
       const access_token = generateToken(findUser)
-      res.header('Authorization', access_token)
       console.log(access_token)
-      return res.redirect('/products')
+      res
+        .cookie('token', access_token, { httpOnly: true })
+        .redirect('/products')
     } else {
       return res.status(401).render('error', { error: 'Email o password incorrectos' })
     }
@@ -77,6 +74,24 @@ export default class UserController {
       return res.redirect('/products')
     } else {
       return res.status(401).render('error', { error: 'Email o password incorrectos' })
+    }
+  }
+
+  async current(req, res) {
+    console.log(req.user)
+    const { userID } = req.user
+    const user = await userService.getById(userID)
+    if(!user) res.json({ message: 'User not found' })
+    else {
+      console.log('USER -->', user)
+      res.json({
+        status: "success",
+        userData: {
+          token: req.cookies.token,
+          email: user.email,
+          role: user.role
+        },
+      }) 
     }
   }
 }
