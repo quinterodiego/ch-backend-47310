@@ -7,7 +7,6 @@ export default class UserController {
   async register(req, res) {
     try {
       const user = req.body
-      console.log(req.body)
       if(!user.email || !user.password || !user.first_name || !user.last_name) {
         return res.status(400).render('error', { error: 'Debe completar todos los campos' })
       }
@@ -79,12 +78,10 @@ export default class UserController {
   }
 
   async current(req, res) {
-    console.log(req.user)
     const { userID } = req.user
     const user = await userService.getById(userID)
     if(!user) res.json({ message: 'User not found' })
     else {
-      console.log('USER -->', user)
       res.json({
         status: "success",
         userData: {

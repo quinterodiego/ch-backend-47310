@@ -11,9 +11,7 @@ const strategyOptions = {
 }
 
 const verifyToken = async(jwt_payload, done) => {
-  console.log('payload => ', jwt_payload)
   const user = await userDaoMongoDB.getById(jwt_payload.userID)
-  console.log(jwt_payload)
   if(!user) return done(null, false)
   return done(null, jwt_payload)
 }

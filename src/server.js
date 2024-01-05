@@ -12,7 +12,7 @@ import './config/passport/strategies.google.js'
 import './config/passport/strategies.jwt.js'
 import { iniPassport } from './config/passport/strategies.github.js'
 
-import router from './routes/index.routes.js'
+import MainRouter from './routes/index.routes.js'
 
 import connectMongoDB from './dao/mongoDB/connection.js'
 import { MessagesModel } from './dao/mongoDB/models/messages.model.js'
@@ -20,6 +20,7 @@ import { MessagesModel } from './dao/mongoDB/models/messages.model.js'
 const app = express()
 const PORT = process.env.PORT || 8080
 const persistence = process.env.PERSISTENCE
+const mainRouter = new MainRouter()
 
 // HANDLEBARS
 app.engine('handlebars', handlebars.engine())
@@ -41,7 +42,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 // ROUTES APIS
-app.use('/', router)
+app.use('/', mainRouter.getRouter())
 
 app.get("*", (req, res) => {
   return res.status(404).json({

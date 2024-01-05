@@ -7,20 +7,30 @@ import { cartRouterView } from './cartView.routes.js'
 import { authRouter } from './auth.routes.js'
 import messagesRouter from './messages.routes.js'
 
-const router = Router()
+export default class MainRouter {
+  constructor() {
+    this.router = Router()
+    this.initRoutes()
+  }
 
-// APIS
-router.use('/api/products', productsRouter)
-router.use('/api/carts', cartsRouter)
-router.use('/api/chat', messagesRouter)
+  initRoutes() {
+    // APIS
+    this.router.use('/api/products', productsRouter)
+    this.router.use('/api/carts', cartsRouter)
+    this.router.use('/api/chat', messagesRouter)
 
-// VIEWS
-router.use("/products", productRouterView);
-router.use("/carts", cartRouterView);
-router.get('/chat', async (req, res) => {
-    res.render('chat', {})
-})
+    // VIEWS
+    this.router.use("/products", productRouterView);
+    this.router.use("/carts", cartRouterView);
+    this.router.get('/chat', async (req, res) => {
+        res.render('chat', {})
+    })
 
-router.use('/', authRouter)
+    this.router.use('/', authRouter)
+  }
 
-export default router
+  getRouter() {
+    return this.router
+  }
+}
+
