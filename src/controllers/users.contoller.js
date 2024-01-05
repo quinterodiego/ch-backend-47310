@@ -7,7 +7,7 @@ export default class UserController {
   async register(req, res) {
     try {
       const user = req.body
-      if(!user.email || !user.password || !user.firstname || !user.lastname) {
+      if(!user.email || !user.password || !user.first_name || !user.last_name) {
         return res.status(400).render('error', { error: 'Debe completar todos los campos' })
       }
       return res.redirect('/')
