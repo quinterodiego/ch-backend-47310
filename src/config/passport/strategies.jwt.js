@@ -19,6 +19,7 @@ const verifyToken = async(jwt_payload, done) => {
 }
 
 const cookieExtractor = (req) => {
+  console.log('cookieExtractor')
   const token = req.cookies.token
   return token
 }
