@@ -6,8 +6,9 @@
  import { Strategy as GitHubStrategy } from "passport-github2";
  import passport from 'passport'
 
- import UserDaoMongoDB from '../../dao/mongoDB/user.dao.js'
- const userDaoMongoDB = new UserDaoMongoDB()
+import UserDaoMongoDB from '../../dao/mongoDB/users/user.dao.js'
+
+const userDaoMongoDB = new UserDaoMongoDB()
 
  const strategyOptions = {
    clientID: 'Iv1.cbef2e47bf15f010',

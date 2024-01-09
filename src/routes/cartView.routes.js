@@ -1,10 +1,11 @@
-import express from 'express';
-import { getById } from '../controllers/carts.controller.js';
+import Router from 'express'
+import CartController from '../controllers/carts.controller.js'
 
-export const cartRouterView = express.Router();
+export const cartRouterView = Router()
+const cartController = new CartController()
 
 cartRouterView.get('/:cid', async (req, res) => {
-    const resp = await getById(req.params.cid)
+    const resp = await cartController.getById(req.params.cid)
     const resp2 = {
         payload: resp
     }

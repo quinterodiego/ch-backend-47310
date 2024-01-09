@@ -1,4 +1,4 @@
-import MessageDaoMongoDB from './../dao/mongoDB/message.dao.js'
+import MessageDaoMongoDB from './../dao/mongoDB/messages/message.dao.js'
 const messageDao = new MessageDaoMongoDB()
 
 export const getAll = async () => {

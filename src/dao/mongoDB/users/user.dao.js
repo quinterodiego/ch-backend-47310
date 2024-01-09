@@ -1,22 +1,16 @@
-import { createHash, isValidPassword } from '../../utils.js'
-import { UserModel } from './models/users.model.js'
+import MongoDBDao from '../mongodb.dao.js'
+import { createHash, isValidPassword } from '../../../utils.js'
+import { UserModel } from './users.model.js'
 
-export default class UserDaoMongoDB {
+export default class UserDaoMongoDB extends MongoDBDao {
+
+  constructor() {
+    super( UserModel )
+  }
 
   async findByEmail(email) {
     try {
       const userExist = await UserModel.findOne({ email })
-      if(userExist) return userExist
-      else return false 
-    } catch (error) {
-      console.log(error)
-      throw new Error(error)
-    }
-  }
-
-  async getById(id) {
-    try {
-      const userExist = await UserModel.findOne({ _id: id })
       if(userExist) return userExist
       else return false 
     } catch (error) {

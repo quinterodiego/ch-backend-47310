@@ -7,11 +7,9 @@ const userController = new UserController()
 export const authRouter = express.Router()
 
 authRouter.get('/', userController.loginView)
-
 authRouter.post('/login', passport.authenticate('login', { scope: ['user:email'] }), userController.login)
 
 authRouter.get('/register', userController.registerView)
-
 authRouter.post('/register', passport.authenticate('register'), userController.register)
 
 authRouter.get('/logout', userController.logout)

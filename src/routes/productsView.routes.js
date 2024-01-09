@@ -1,7 +1,7 @@
-import express from 'express';
-import { getAllProducts } from '../controllers/productsView.controller.js'
+import Router from 'express';
+import ProductController from '../controllers/products.controller.js'
 
-export const productRouterView = express.Router();
+export const productRouterView = Router()
+const productController = new ProductController()
 
-productRouterView.get('/', getAllProducts);
-
+productRouterView.get('/', productController.getAllForView);

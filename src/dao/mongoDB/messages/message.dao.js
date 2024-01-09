@@ -1,4 +1,4 @@
-import { MessagesModel } from './models/messages.model.js'
+import { MessagesModel } from './messages.model.js'
 
 export default class MessageDaoMongoDB {
 

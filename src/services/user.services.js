@@ -1,11 +1,15 @@
-import UserDaoMongoDB from '../dao/mongoDB/user.dao.js'
-const userDaoMongoDB = new UserDaoMongoDB()
+import Services from './class.services.js'
+import UserDaoMongoDB from '../dao/mongoDB/users/user.dao.js'
+const userDao = new UserDaoMongoDB()
 
-export default class UserService {
+export default class UserService extends Services {
+  constructor() {
+    super(userDao)
+  }
 
   async findByEmail(email) {
     try {
-      const user = await userDaoMongoDB.findByEmail(email)
+      const user = await userDao.findByEmail(email)
       if(!user) return false
       else return user
     } catch (error) {
@@ -15,7 +19,7 @@ export default class UserService {
 
   async registerUser(user) {
     try {
-      const userRegisted = await userDaoMongoDB.registerUser(user)
+      const userRegisted = await userDao.registerUser(user)
       if(!userRegisted) return false
       else return userRegisted
     } catch (error) {
@@ -23,24 +27,13 @@ export default class UserService {
     }
   }
 
-  async getById(id) {
-    try {
-      const user = await userDaoMongoDB.getById(id)
-      if (!user) return false
-      else return user
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   async loginUser(user) {
     try {
-      const userLogged = await userDaoMongoDB.loginUser(user)
+      const userLogged = await userDao.loginUser(user)
       if (!userLogged) return false
       else return userLogged
     } catch (error) {
       console.log(error)
     }
   }
-
 }

@@ -14,8 +14,8 @@ import { iniPassport } from './config/passport/strategies.github.js'
 
 import MainRouter from './routes/index.routes.js'
 
-import connectMongoDB from './dao/mongoDB/connection.js'
-import { MessagesModel } from './dao/mongoDB/models/messages.model.js'
+import connectMongoDB from './config/connectionDB/connection.js'
+import { MessagesModel } from './dao/mongoDB/messages/messages.model.js'
 
 const app = express()
 const PORT = process.env.PORT || 8080
@@ -41,7 +41,7 @@ iniPassport()
 app.use(passport.initialize())
 app.use(passport.session())
 
-// ROUTES APIS
+// ROUTES
 app.use('/', mainRouter.getRouter())
 
 app.get("*", (req, res) => {

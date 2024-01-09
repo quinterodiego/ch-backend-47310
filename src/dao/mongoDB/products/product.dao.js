@@ -1,6 +1,10 @@
-import { ProductModel } from './models/products.model.js'
+import MongoDBDao from '../mongodb.dao.js'
+import { ProductModel } from './products.model.js'
 
-export default class ProductDaoMongoDB {
+export default class ProductDaoMongoDB extends MongoDBDao {
+  constructor() {
+    super( ProductModel )
+  }
 
   async getAll(query, filters){
     try {
@@ -11,23 +15,6 @@ export default class ProductDaoMongoDB {
     }
   }
 
-  async getById(id) {
-    try {
-      const resp = await ProductModel.findById(id)
-      return resp
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  async create(product) {
-    try {
-      const resp = await ProductModel.create(product)
-      return resp
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   async update(id, product) {
     try {
