@@ -23,6 +23,7 @@ export default class UserDaoMongoDB extends MongoDBDao {
     try {
       const { email, password } = user
       const existUser = await this.findByEmail(email)
+      console.log('existUser', existUser)
       if(!existUser) {
         if(email === 'adminCoder@coder.com' && password === 'adminCod3r123') {
           return await UserModel.create(
@@ -33,7 +34,8 @@ export default class UserDaoMongoDB extends MongoDBDao {
             }
           )
         }
-        return await UserModel.create({ ...user, password: createHash(password) })
+        const newUser = await UserModel.create({ ...user, password: createHash(password) })
+        return newUser
       } else return false
     } catch (error) {
       console.log(error)

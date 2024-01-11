@@ -6,15 +6,17 @@ const userService = new UserService()
 
 export default class UserController extends Controller {
 
+  constructor() {
+    super(userService)
+  }
+
   async register(req, res, next) {
     try {
       const user = req.body
       if(!user.email || !user.password || !user.first_name || !user.last_name) {
         return res.status(400).render('error', { error: 'Debe completar todos los campos' })
       }
-      // return res.redirect('/')
-      const newUser = await userService.registerUser(user)
-      !newUser ? createResponse(res, 404, 'User already exist') : createResponse(res, 200, newUser)
+     res.status(200).redirect('/')
     } catch (error) {
       next(error).message
     }

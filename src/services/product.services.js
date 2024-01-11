@@ -18,7 +18,7 @@ export default class ProductService extends Services {
     let query = {}
     category ? query.category = category : null
     stock ? query.stock = { $gt: stock} : null
-    const resp = await productDao.getAll(query, filters)
+    const resp = await productDao.getAllWithQueryAndFilters(query, filters)
     const paramLimit = limit ? `&limit=${limit}` : ''
     const paramSort = sort ? `&sort=${sort}` : ''
     const paramCategory = category ? `&category=${category}` : ''

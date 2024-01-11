@@ -1,14 +1,27 @@
 import { Router } from 'express'
 
 import productsRouter from './products.routes.js'
+import { productRouterView } from './productsView.routes.js'
 import cartsRouter from './carts.routes.js'
+import { cartRouterView } from './cartView.routes.js'
 import { authRouter } from './auth.routes.js'
 
-const router = Router()
+export default class MainRouter {
+  constructor() {
+    this.router = Router();
+    this.initRoutes();
+  }
 
-router.use('/api/products', productsRouter)
-router.use('/api/carts', cartsRouter)
-// router.use('/api/chat', messagesRouter)
-router.use('/auth', authRouter)
+  initRoutes() {
+   this.router.use('/api/products', productsRouter)
+   this.router.use('/api/carts', cartsRouter)
+    //this.router.use('/api/chat', messagesRouter)
+   this.router.use('/', authRouter)
+   this.router.use('/products', productRouterView)
+   this.router.use('/cart', cartRouterView);
+  }
 
-export default router
+  getRouter() {
+    return this.router;
+  }
+}
