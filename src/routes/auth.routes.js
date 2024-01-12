@@ -7,7 +7,7 @@ const userController = new UserController()
 export const authRouter = express.Router()
 
 authRouter.get('/', userController.loginView)
-authRouter.post('/login', passport.authenticate('login', { scope: ['user:email'] }), userController.login)
+authRouter.post('/login', passport.authenticate('login', { scope: ['user:email'], failureRedirect: '/error' }), userController.login)
 
 authRouter.get('/register', userController.registerView)
 authRouter.post('/register', passport.authenticate('register'), userController.register)
@@ -32,3 +32,5 @@ authRouter.get('/faillogin', async (_, res) => {
 authRouter.get('/auth/oauth2/redirect/accounts.google.com', passport.authenticate('google', { assignProperty: 'user' }), userController.loginGoogle)
 
 authRouter.get('/current', passport.authenticate('jwtCookie'), userController.current)
+
+authRouter.get('/error', userController.error)
