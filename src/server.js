@@ -53,7 +53,7 @@ app.get("*", (req, res) => {
 if(persistence === 'mongodb') await connectMongoDB()
 
 const server = app.listen(PORT, () => {
-  console.log(`Servidor escuchando en el puerto ${PORT}`)
+  console.log(`Servidor escuchando en el puerto http://localhost:${PORT}`)
 })
 
 // SOCKET

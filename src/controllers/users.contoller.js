@@ -45,6 +45,10 @@ export default class UserController extends Controller {
     res.render('login', {})
   }
 
+  async error(req, res) {
+    res.render('error', {})
+  }
+
   async logout(req, res) {
     req.session.destroy((err) => {
       if(err) {
