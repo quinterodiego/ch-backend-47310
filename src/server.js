@@ -10,10 +10,7 @@ import './config/passport/strategies.passport.js'
 import './config/passport/strategies.google.js'
 import './config/passport/strategies.jwt.js'
 import { iniPassport } from './config/passport/strategies.github.js'
-
 import MainRouter from './routes/index.routes.js'
-
-import connectMongoDB from './config/connectionDB/connection.js'
 
 const app = express()
 const PORT = config.PORT || 8080
@@ -41,12 +38,6 @@ app.use(passport.session())
 
 // ROUTES
 app.use('/', mainRouter.getRouter())
-app.get("*", (req, res) => {
-  return res.status(404).json({
-    status: "error",
-    msg: "Página no encontrada"
-  });
-});
 
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto http://localhost:${PORT}`)
