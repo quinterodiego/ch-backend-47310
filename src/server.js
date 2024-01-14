@@ -1,8 +1,7 @@
-import 'dotenv/config'
+import config from './config/config.js'
 import express from 'express'
 import cookieParser from "cookie-parser"
 import handlebars from 'express-handlebars'
-import { Server } from "socket.io"
 import session from 'express-session'
 import passport from 'passport'
 
@@ -15,11 +14,10 @@ import { iniPassport } from './config/passport/strategies.github.js'
 import MainRouter from './routes/index.routes.js'
 
 import connectMongoDB from './config/connectionDB/connection.js'
-import { MessagesModel } from './dao/mongoDB/messages/messages.model.js'
 
 const app = express()
-const PORT = process.env.PORT || 8080
-const persistence = process.env.PERSISTENCE
+const PORT = config.PORT || 8080
+const persistence = config.PERSISTENCE
 const mainRouter = new MainRouter()
 
 // HANDLEBARS
@@ -50,23 +48,6 @@ app.get("*", (req, res) => {
   });
 });
 
-if(persistence === 'mongodb') await connectMongoDB()
-
-const server = app.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto http://localhost:${PORT}`)
-})
-
-// SOCKET
-const io = new Server(server)
-io.on('connection', async (socket) => {
-  console.log(`Nueva conexion ${socket.id}`)
-  const messages = await MessagesModel.find()
-
-  socket.emit('messages', messages)
-
-  socket.on('newMessage', async data => {
-      await MessagesModel.create(data)
-      const messages = await MessagesModel.find()
-      io.sockets.emit('messages', messages)
-  })
 })

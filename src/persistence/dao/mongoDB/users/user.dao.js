@@ -1,5 +1,5 @@
 import MongoDBDao from '../mongodb.dao.js'
-import { createHash, isValidPassword } from '../../../utils.js'
+import { createHash, isValidPassword } from '../../../../utils.js'
 import { UserModel } from './users.model.js'
 
 export default class UserDaoMongoDB extends MongoDBDao {

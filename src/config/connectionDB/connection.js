@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
-
-const connectionString = process.env.MONGODB_URL
+import config from './../config.js'
+const connectionString = config.MONGODB_URL
 
 const connectMongoDB = async () => {
     try {

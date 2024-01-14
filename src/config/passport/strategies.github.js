@@ -6,7 +6,7 @@
  import { Strategy as GitHubStrategy } from "passport-github2";
  import passport from 'passport'
 
-import UserDaoMongoDB from '../../dao/mongoDB/users/user.dao.js'
+import UserDaoMongoDB from '../../persistence/dao/mongoDB/users/user.dao.js'
 
 const userDaoMongoDB = new UserDaoMongoDB()
 

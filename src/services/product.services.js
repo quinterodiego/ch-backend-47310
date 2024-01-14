@@ -1,6 +1,7 @@
 import Services from './class.services.js'
-import ProductDaoMongoDB from './../dao/mongoDB/products/product.dao.js'
-const productDao = new ProductDaoMongoDB()
+import persistence from '../persistence/persistence.js'
+
+const { productDao } = persistence
 
 export default class ProductService extends Services {
   constructor() {

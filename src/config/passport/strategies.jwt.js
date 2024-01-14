@@ -1,13 +1,14 @@
 import passport from 'passport'
 import { ExtractJwt, Strategy as jwtStrategy } from 'passport-jwt'
 
-import UserDaoMongoDB from '../../dao/mongoDB/users/user.dao.js'
+import config from './../config.js'
+import UserDaoMongoDB from '../../persistence/dao/mongoDB/users/user.dao.js'
 
 const userDaoMongoDB = new UserDaoMongoDB()
 
 const strategyOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: process.env.PRIVATE_KEY,
+  secretOrKey: config.PRIVATE_KEY,
 }
 
 const verifyToken = async(jwt_payload, done) => {
@@ -24,7 +25,7 @@ const cookieExtractor = (req) => {
 
 const strategyOptionsCookies = {
   jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
-  secretOrKey: process.env.PRIVATE_KEY
+  secretOrKey: config.PRIVATE_KEY
 }
 
 passport.use('jwt', new jwtStrategy(strategyOptions, verifyToken))
