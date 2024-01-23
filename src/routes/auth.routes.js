@@ -6,13 +6,6 @@ import UserController from '../controllers/users.contoller.js'
 const userController = new UserController()
 export const authRouter = express.Router()
 
-authRouter.get("*", (req, res) => {
-  return res.status(404).json({
-    status: "error",
-    msg: "Página no encontrada"
-  });
-});
-
 authRouter.get('/', userController.loginView)
 authRouter.post('/login', passport.authenticate('login', { scope: ['user:email'], failureRedirect: '/error' }), userController.login)
 

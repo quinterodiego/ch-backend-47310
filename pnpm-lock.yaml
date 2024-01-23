@@ -21,8 +21,8 @@ dependencies:
     specifier: ^4.18.2
     version: 4.18.2
   express-handlebars:
-    specifier: ^7.0.7
-    version: 7.0.7
+    specifier: ^7.1.2
+    version: 7.1.2
   express-session:
     specifier: ^1.17.3
     version: 1.17.3
@@ -561,8 +561,8 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
-  /express-handlebars@7.0.7:
-    resolution: {integrity: sha512-O4jUlkEVvqwyhkcmjWOqAEcV3JbcaGnlyS0oSgI3vyXO59Fco5JJtUboU2VHqv3Em3Q0VFC2VhRsmaUeNCOr5Q==}
+  /express-handlebars@7.1.2:
+    resolution: {integrity: sha512-ss9d3mBChOLTEtyfzXCsxlItUxpgS3i4cb/F70G6Q5ohQzmD12XB4x/Y9U6YboeeYBJZt7WQ5yUNu7ZSQ/EGyQ==}
     engines: {node: '>=v16'}
     dependencies:
       glob: 10.3.10
