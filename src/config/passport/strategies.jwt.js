@@ -2,7 +2,7 @@ import passport from 'passport'
 import { ExtractJwt, Strategy as jwtStrategy } from 'passport-jwt'
 
 import config from './../config.js'
-import UserDaoMongoDB from '../../persistence/dao/mongoDB/users/user.dao.js'
+import UserDaoMongoDB from '../../factory/dao/mongoDB/users/user.dao.js'
 
 const userDaoMongoDB = new UserDaoMongoDB()
 

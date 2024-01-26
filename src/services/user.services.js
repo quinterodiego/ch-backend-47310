@@ -1,5 +1,5 @@
 import Services from './class.services.js'
-import UserDaoMongoDB from '../persistence/dao/mongoDB/users/user.dao.js'
+import UserDaoMongoDB from '../factory/dao/mongoDB/users/user.dao.js'
 const userDao = new UserDaoMongoDB()
 
 export default class UserService extends Services {
