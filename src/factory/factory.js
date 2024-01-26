@@ -9,6 +9,7 @@ import config from '../config/config.js'
 import connectMongoDB from '../config/connectionDB/connection.js'
 
 import ProductDaoMySql from './dao/mysql/products/product.dao.js'
+import CartDaoMySql from './dao/mysql/carts/carts.dao.js'
 import UsersDaoMySql from './dao/mysql/users/users.dao.js'
 import { initMySqlDB } from './dao/mysql/connection.js'
 
@@ -34,7 +35,7 @@ switch (persistence) {
   case 'mysql':
     await initMySqlDB()
     productDao = new ProductDaoMySql()
-    // cartDao = new CartDaoMongoDB()
+    cartDao = new CartDaoMySql()
     userDao = new UsersDaoMySql()
     break;
 
