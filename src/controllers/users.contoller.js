@@ -88,11 +88,12 @@ export default class UserController extends Controller {
 
   async current(req, res, next) {
     const { userID } = req.user
-    const user = await userService.getById(userID)
+    const user = await userService.getUserByIdDTO(userID)
     !user ? createResponse(res, 404, 'User not found') : createResponse(res, 200, {
-      token: req.cookies.token,
-      email: user.email,
-      role: user.role
+      name: user.firstNameUser,
+      lastName: user.lastNameUser,
+      email: user.emailUser,
+      role: user.roleUser
     })
   }
 }

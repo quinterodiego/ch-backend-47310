@@ -1,11 +1,11 @@
 <div class="home">
-  <div class="form-container text-white d-flex flex-column justify-content-center align-items-center">
-    <div class="logo d-flex justify-content-center align-items-center">
+  <div class="form-container text-white d-flex flex-column justify-content-start align-items-center">
+    <div class="logo d-flex justify-content-start align-items-center">
       <img src="img/pizza.png" alt="">
       <h1>PIZZA DALMI</h1>
     </div>
     <h2>Ingresar</h2>
-    <form action="/login" method="POST" class="w-50 m-auto">
+    <form action="/login" method="POST" class="w-25 m-auto">
       <div class="mb-3">
         <label for="email" class="form-label">Email</label>
         <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp">
@@ -15,10 +15,10 @@
         <input type="password" class="form-control" name="password" id="password">
       </div>
       <div class="buttons">
-        <button type="submit" class="btn btn-dark">Login</button>
-        <a class="btn btn-dark" href="/auth/oauth2/redirect/accounts.google.com"><img class="google" src="img/google.png">Login con Google</a>
-        <a class="btn btn-dark" href="/github"><i class="fa-brands fa-github"></i>Login con GitHub</a>
-        <a class="btn btn-success" href="/register">Aún no tengo cuenta</a>
+        <button type="submit" class="btn btn-dark w-100 my-1">Login</button>
+        <a class="btn btn-dark w-100 my-1" href="/auth/oauth2/redirect/accounts.google.com"><img class="google" src="img/google.png">Login con Google</a>
+        <a class="btn btn-dark w-100 my-1" href="/github"><i class="fa-brands fa-github"></i>Login con GitHub</a>
+        <a class="btn btn-success w-100 my-1" href="/register">Aún no tengo cuenta</a>
       </div>
     </form>
   </div>

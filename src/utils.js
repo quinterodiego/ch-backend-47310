@@ -25,6 +25,7 @@ export const createHash = (password) => {
 
   /* Login */
 export const isValidPassword = (password, user) => {
+  console.log(password, user.password)
   return compareSync(password, user.password)
 }
 

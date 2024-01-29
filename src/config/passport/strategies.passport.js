@@ -41,11 +41,19 @@ const signinStrategy = new LocalStrategy(strategyOptions, signin)
 passport.use('register', signUpStrategy)
 passport.use('login', signinStrategy)
 
+// passport.serializeUser((user, done) => {
+//   done(null, user._id)
+// })
+
+// passport.deserializeUser(async (id, done) => {
+//   const user = await userService.getById(id)
+//   return done(null, user)
+// })
+
 passport.serializeUser((user, done) => {
-  done(null, user._id)
+  done(null, user)
 })
 
-passport.deserializeUser(async (id, done) => {
-  const user = await userService.getById(id)
+passport.deserializeUser((user, done) => {
   return done(null, user)
 })

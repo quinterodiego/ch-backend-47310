@@ -1,6 +1,9 @@
 import Services from './class.services.js'
-import UserDaoMongoDB from '../factory/dao/mongoDB/users/user.dao.js'
-const userDao = new UserDaoMongoDB()
+import factory from '../factory/factory.js'
+import UserRepository from '../repository/user.repository.js'
+
+const { userDao } = factory
+const userRepository = new UserRepository()
 
 export default class UserService extends Services {
   constructor() {
@@ -33,6 +36,16 @@ export default class UserService extends Services {
       const userLogged = await userDao.loginUser(user)
       if (!userLogged) return false
       else return userLogged
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async getUserByIdDTO(id) {
+    try {
+      const user = await userRepository.getUserById(id)
+      if (!user) return false
+      else return user
     } catch (error) {
       console.log(error)
     }
