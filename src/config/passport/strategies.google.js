@@ -1,8 +1,11 @@
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
 import passport from 'passport'
-import UserDaoMongoDB from '../../factory/dao/mongoDB/users/user.dao.js'
 
-const userDaoMongoDB = new UserDaoMongoDB()
+import UserService from '../../services/user.services.js'
+import CartService from '../../services/cart.services.js'
+
+const userService = new UserService()
+const cartService = new CartService()
 
 const strategyOptions = {
   clientID: '604539075194-qhf3ak4juct25ec1ccbe73m0ok5rk0ra.apps.googleusercontent.com',
@@ -14,15 +17,16 @@ const strategyOptions = {
 
 const registerOrLogin = async (accesToken, _, profile, done) => {
   try {
-    const user = await userDaoMongoDB.findByEmail( profile._json.email )
+    const user = await userService.findByEmail( profile._json.email )
     if (!user) {
+      const newCart = await cartService.create()
       const newUser = {
         email: profile._json.email,
-        firstname: profile._json.name || profile._json.login || 'noname',
-        lastname: 'nolast',
+        first_name: profile._json.name || profile._json.login || 'noname',
+        last_name: 'nolast',
         password: 'nopass',
       };
-      const userCreated = await userDaoMongoDB.registerUser(newUser)
+      const userCreated = await userService.registerUser({ ...newUser, cart: newCart })
       console.log('User Registration succesful')
       return done(null, userCreated)
     } else {
@@ -30,7 +34,7 @@ const registerOrLogin = async (accesToken, _, profile, done) => {
       return done(null, user)
     }
   } catch (e) {
-    console.log('Error en auth github')
+    console.log('Error en auth Google')
     console.log(e)
     return done(e)
   }

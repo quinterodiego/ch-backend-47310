@@ -23,7 +23,6 @@ export default class UserService extends Services {
   async registerUser(user) {
     try {
       const userRegisted = await userDao.registerUser(user)
-      console.log('userRegisted', userRegisted)
       if(!userRegisted) return false
       else return userRegisted
     } catch (error) {

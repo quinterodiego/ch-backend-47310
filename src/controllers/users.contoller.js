@@ -76,8 +76,8 @@ export default class UserController extends Controller {
     const user = req.user
     
     if(user) {
-      req.session.firstname = user.firstname
-      req.session.lastname = user.lastname
+      req.session.first_name = user.first_name
+      req.session.last_name = user.last_name
       req.session.email = user.email
       req.session.role = user.role
       return res.redirect('/products')

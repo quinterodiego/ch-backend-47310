@@ -2,8 +2,10 @@ import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 
 import UserService from '../../services/user.services.js'
+import CartService from '../../services/cart.services.js'
 
 const userService = new UserService()
+const cartService = new CartService()
 
 const strategyOptions = {
   usernameField: 'email',
@@ -15,7 +17,8 @@ const signup = async(req, email, password, done) => {
   try {
     const user = await userService.findByEmail( email )
     if(user) return done(null, user)
-    const newUser = await userService.registerUser(req.body)
+    const newCart = await cartService.create()
+    const newUser = await userService.registerUser({ ...req.body, cart: newCart })
     return done(null, newUser)
   } catch (error) {
     console.log(error)
@@ -40,15 +43,6 @@ const signinStrategy = new LocalStrategy(strategyOptions, signin)
 
 passport.use('register', signUpStrategy)
 passport.use('login', signinStrategy)
-
-// passport.serializeUser((user, done) => {
-//   done(null, user._id)
-// })
-
-// passport.deserializeUser(async (id, done) => {
-//   const user = await userService.getById(id)
-//   return done(null, user)
-// })
 
 passport.serializeUser((user, done) => {
   done(null, user)

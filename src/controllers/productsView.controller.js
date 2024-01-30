@@ -10,13 +10,12 @@ export default class ProductViewController extends Controller {
   getAllForView =  async (req, res) => {
     const { limit, page, sort, category, stock } = req.query
     const products = await productService.getAllForView(limit, page, sort, category, stock)
+    console.log(req.user)
     const userData = {
-      firstname: req.user.firstname,
-      lastname: req.user.lastname,
-      email: req.user.email,
-      role: req.user.role
+      firstname: req.session.first_name,
+      email: req.session.email,
+      role: req.session.role
     }
-    console.log(req.session)
     products.userData = userData
     res.status(200).render('products', products)
   }

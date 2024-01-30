@@ -3,12 +3,15 @@
   Client ID: Iv1.cbef2e47bf15f010
   Client Secret: 3431a3cb77c1e4e5d4e2fffd1c4f737b6c6dd7b7
 */
-import { Strategy as GitHubStrategy } from "passport-github2";
+import { Strategy as GitHubStrategy } from "passport-github2"
 import passport from 'passport'
 
-import UserDaoMongoDB from '../../factory/dao/mongoDB/users/user.dao.js'
+import UserService from '../../services/user.services.js'
+import CartService from '../../services/cart.services.js'
 
-const userDaoMongoDB = new UserDaoMongoDB()
+const userService = new UserService()
+const cartService = new CartService()
+
 
  const strategyOptions = {
    clientID: 'Iv1.cbef2e47bf15f010',
@@ -18,15 +21,16 @@ const userDaoMongoDB = new UserDaoMongoDB()
 
  const registerOrLogin = async (accesToken, _, profile, done) => {
   try {
-    const user = await userDaoMongoDB.findByEmail( profile._json.email )
+    const user = await userService.findByEmail( profile._json.email )
     if (!user) {
+      const newCart = await cartService.create()
       const newUser = {
         email: profile._json.email,
         firstname: profile._json.name || profile._json.login || 'noname',
         lastname: 'nolast',
         password: 'nopass',
       };
-      const userCreated = await userDaoMongoDB.registerUser(newUser)
+      const userCreated = await userService.registerUser({ ...newUser, cart: newCart })
       console.log('User Registration succesful')
       return done(null, userCreated)
     } else {
