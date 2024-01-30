@@ -4,12 +4,14 @@ import UserDaoFilesystem from './dao/fileSystem/users/user.dao.js'
 
 import ProductDaoMongoDB from './dao/mongoDB/products/product.dao.js'
 import CartDaoMongoDB from './dao/mongoDB/carts/cart.dao.js'
+import TicketDaoMongoDB from './dao/mongoDB/tickets/tickets.dao.js'
 import UserDaoMongoDB from './dao/mongoDB/users/user.dao.js'
 import config from '../config/config.js'
 import connectMongoDB from '../config/connectionDB/connection.js'
 
 let productDao
 let cartDao
+let ticketDao
 let userDao
 const persistence = config.PERSISTENCE
 
@@ -24,6 +26,7 @@ switch (persistence) {
     await connectMongoDB()
     productDao = new ProductDaoMongoDB()
     cartDao = new CartDaoMongoDB()
+    ticketDao = new TicketDaoMongoDB()
     userDao = new UserDaoMongoDB()
     break;
 

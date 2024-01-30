@@ -1,10 +1,8 @@
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
 import passport from 'passport'
 import UserDaoMongoDB from '../../factory/dao/mongoDB/users/user.dao.js'
-import UserService from '../../services/user.services.js'
 
 const userDaoMongoDB = new UserDaoMongoDB()
-const userService = new UserService()
 
 const strategyOptions = {
   clientID: '604539075194-qhf3ak4juct25ec1ccbe73m0ok5rk0ra.apps.googleusercontent.com',

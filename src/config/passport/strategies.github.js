@@ -3,8 +3,8 @@
   Client ID: Iv1.cbef2e47bf15f010
   Client Secret: 3431a3cb77c1e4e5d4e2fffd1c4f737b6c6dd7b7
 */
- import { Strategy as GitHubStrategy } from "passport-github2";
- import passport from 'passport'
+import { Strategy as GitHubStrategy } from "passport-github2";
+import passport from 'passport'
 
 import UserDaoMongoDB from '../../factory/dao/mongoDB/users/user.dao.js'
 
