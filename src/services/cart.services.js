@@ -8,7 +8,7 @@ export default class CartService extends Services {
     super(cartDao)
   }
 
-  create = async () => {
+  createCart = async () => {
     try {
       const products = []
       const newCart = await cartDao.create({products})

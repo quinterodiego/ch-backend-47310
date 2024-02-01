@@ -1,8 +1,8 @@
 import Router from 'express'
-import generateTicket from '../controllers/tickets.controller.js'
+import * as controller from '../controllers/tickets.controller.js'
 
 const ticketsRouter = Router()
 
-productsRouter.post('/cart/', productController.getAll)
+ticketsRouter.post('/cart/:cartId', controller.generateTicket)
 
 export default productsRouter
