@@ -34,3 +34,19 @@ export const isValidPassword = (password, user) => {
 export const createResponse = (res, statusCode, data) => {
   return res.status(statusCode).json({ data });
 };
+
+// FAKER
+import { fakerES as faker } from '@faker-js/faker'
+
+export const generateProducts = () => {
+  return {
+    title: faker.commerce.productName(),
+    description: faker.commerce.productDescription(),
+    thumbnail: faker.image.urlLoremFlickr({ category: 'food' }),
+    price: faker.commerce.price(),
+    code: faker.string.hexadecimal(),
+    stock: faker.number.int(100),
+    category: faker.string.fromCharacters('abc', 10),
+    status: faker.datatype.boolean(0.9)
+  }
+}

@@ -1,6 +1,7 @@
 import { Router } from 'express'
 
 import productsRouter from './products.routes.js'
+import productsFakerRouter from './productsFaker.routes.js'
 import { productRouterView } from './productsView.routes.js'
 import cartsRouter from './carts.routes.js'
 import { cartRouterView } from './cartView.routes.js'
@@ -14,6 +15,7 @@ export default class MainRouter {
 
   initRoutes() {
    this.router.use('/api/products', productsRouter)
+   this.router.use('/mockingproducts', productsFakerRouter)
    this.router.use('/api/carts', cartsRouter)
     //this.router.use('/api/chat', messagesRouter)
    this.router.use('/', authRouter)

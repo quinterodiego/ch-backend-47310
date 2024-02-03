@@ -42,9 +42,8 @@ app.get("*", (req, res) => {
   return res.status(404).json({
     status: "error",
     msg: "Página no encontrada"
-  });
-});
-
+  })
+})
 
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto http://localhost:${PORT}`)
