@@ -15,7 +15,6 @@ import { errorHandler } from './middlewares/errorHandler.js'
 
 const app = express()
 const PORT = config.PORT || 8080
-const persistence = config.PERSISTENCE
 const mainRouter = new MainRouter()
 
 // HANDLEBARS

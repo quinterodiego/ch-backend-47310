@@ -1,4 +1,7 @@
+import { HttpResponse } from '../http.response.js'
 import { createResponse } from './../utils.js'
+
+const httpResponse = new HttpResponse()
 
 export default class Controller { 
   constructor(service) {
@@ -8,7 +11,7 @@ export default class Controller {
   create = async (req, res, next) => {
     try {
       const newItem = await this.service.create(req.body)
-      !newItem ? createResponse(res, 404, { method: 'create', error: 'Error create newItem!' }) : createResponse(res, 200, newItem)
+      !newItem ? httpResponse.NotFound(res, 'Item not found!') : httpResponse.Ok(res, newItem)
       
     } catch (error) {
       next(error.message)
@@ -18,7 +21,7 @@ export default class Controller {
   getAll = async (req, res, next) => {
     try {
       const items = await this.service.getAll()
-      createResponse(res, 200, items)
+      !items ? httpResponse.NotFound(res, 'Item not found!') : httpResponse.Ok(res, items)
     } catch (error) {
       next(error.message)
     }
@@ -28,7 +31,7 @@ export default class Controller {
     try {
       const { id } = req.params
       const item = await this.service.getById(id)
-      !item ? createResponse(res, 404, { method: 'getById', error: 'Item not found!' }) : createResponse(res, 200, item)
+      !item ? httpResponse.NotFound(res, 'Item not found!') : httpResponse.Ok(res, item)
     } catch (error) {
       next(error.message)
     }
@@ -38,9 +41,9 @@ export default class Controller {
     try {
       const { id } = req.params
       const item = await this.service.getById(id)
-      !item && createResponse(res, 404, { method: 'update', error: 'Error update item!' })
+      !item && httpResponse.NotFound(res, 'Error update item!')
       const itemUpdated = await this.service.update(id, req.body)
-      createResponse(res, 200, itemUpdated)
+      httpResponse.Ok(res, itemUpdated)
     } catch (error) {
       next(error.message)
     }
@@ -50,9 +53,9 @@ export default class Controller {
     try {
       const { id } = req.params
       const item = await this.service.getById(id)
-      !item && createResponse(res, 404, { method: 'delete', error: 'Error delete item!' })
+      !item && httpResponse.NotFound(res, 'Error delete item!')
       const itemDeleted = await this.service.delete(id)
-      createResponse(res, 200, itemDeleted)
+      httpResponse.Ok(res, itemDeleted)
     } catch (error) {
       next(error.message)
     }
