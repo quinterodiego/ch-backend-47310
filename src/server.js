@@ -11,6 +11,7 @@ import './config/passport/strategies.google.js'
 import './config/passport/strategies.jwt.js'
 import { iniPassport } from './config/passport/strategies.github.js'
 import MainRouter from './routes/index.routes.js'
+import { errorHandler } from './middlewares/errorHandler.js'
 
 const app = express()
 const PORT = config.PORT || 8080
@@ -27,6 +28,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser());
 app.use(express.static(__dirname + '/public'))
+app.use(errorHandler)
 
 // CONNECT TO MONGODB
 app.use(session(mongoStoreOptions))
