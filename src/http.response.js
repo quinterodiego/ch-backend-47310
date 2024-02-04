@@ -6,6 +6,11 @@ const httpStatus = {
   INTERNAL_SERVER_ERROR: 500
 }
 
+export const errorsDictionary = {
+  ERROR_CREATE_PRODUCT: 'Error creating product',
+  ERROR_ADD_TO_CART: 'Error adding product to cart',
+}
+
 export class HttpResponse {
   Ok(res, data) {
     return res.status(httpStatus.OK).json({

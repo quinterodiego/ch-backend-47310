@@ -1,5 +1,4 @@
-import { HttpResponse } from '../http.response.js'
-import { createResponse } from './../utils.js'
+import { HttpResponse, errorsDictionary } from '../http.response.js'
 
 const httpResponse = new HttpResponse()
 
@@ -11,7 +10,7 @@ export default class Controller {
   create = async (req, res, next) => {
     try {
       const newItem = await this.service.create(req.body)
-      !newItem ? httpResponse.NotFound(res, 'Item not found!') : httpResponse.Ok(res, newItem)
+      !newItem ? httpResponse.NotFound(res, errorsDictionary.ERROR_CREATE_PRODUCT) : httpResponse.Ok(res, newItem)
       
     } catch (error) {
       next(error.message)

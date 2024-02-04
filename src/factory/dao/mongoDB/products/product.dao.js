@@ -11,7 +11,7 @@ export default class ProductDaoMongoDB extends MongoDBDao {
       const products = await ProductModel.paginate(query, filters)
       return products
     } catch (error) {
-      console.log(error)
+      throw new Error(error.message)
     }
   }
 }

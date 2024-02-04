@@ -8,7 +8,7 @@ export default class Services {
       const newItem = await this.dao.create(obj)
       return !newItem ? false : newItem
     } catch (error) {
-      console.log(error)
+      throw new Error(error.message)
     }
   }
 
@@ -16,7 +16,7 @@ export default class Services {
     try {
       return await this.dao.getAll() 
     } catch (error) {
-      console.log(error)
+      throw new Error(error.message)
     }
   }
 
@@ -25,7 +25,7 @@ export default class Services {
       const item = await this.dao.getById(id)
       return !item ? false : item
     } catch (error) {
-      console.log(error)
+      throw new Error(error.message)
     }
   }
 
@@ -33,7 +33,7 @@ export default class Services {
     try {
       return await this.dao.update(id, obj)
     } catch (error) {
-      console.log(error)
+      throw new Error(error.message)
     }
   }
 
@@ -41,7 +41,7 @@ export default class Services {
     try {
       return await this.dao.delete(id)
     } catch (error) {
-      console.log(error)
+      throw new Error(error.message)
     }
   }
 }
