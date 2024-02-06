@@ -29,13 +29,3 @@ export function isAdmin(req, res, next) {
       "Error de autorización. No tienes permiso para acceder al recurso solicitado"
   })
 }
-
-export function isCartOwner(req, res, next) {
-  if (req.session?.user.cart == req.params.cid) {
-    return next();
-  }
-  return res.status(403).render("error", {
-    errorMessage:
-      "Error de autorización. No tienes permiso para acceder al recurso solicitado",
-  });
-}
