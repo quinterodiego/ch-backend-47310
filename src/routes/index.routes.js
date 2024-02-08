@@ -6,6 +6,7 @@ import { productRouterView } from './productsView.routes.js'
 import cartsRouter from './carts.routes.js'
 import { cartRouterView } from './cartView.routes.js'
 import { authRouter } from './auth.routes.js'
+import emailRouter from './emails.routes.js'
 
 export default class MainRouter {
   constructor() {
@@ -19,6 +20,7 @@ export default class MainRouter {
    this.router.use('/api/carts', cartsRouter)
     //this.router.use('/api/chat', messagesRouter)
    this.router.use('/', authRouter)
+   this.router.use('/api/send', emailRouter)
    this.router.use('/products', productRouterView)
    this.router.use('/cart', cartRouterView);
   }
