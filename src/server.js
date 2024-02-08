@@ -47,5 +47,5 @@ app.get("*", (req, res) => {
 })
 
 app.listen(PORT, () => {
-  console.log(`Servidor escuchando en el puerto http://localhost:${PORT}`)
+  logger.log(`Servidor escuchando en el puerto http://localhost:${PORT}`)
 })
